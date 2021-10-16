@@ -18,11 +18,11 @@ private:
 	int GCD(int a, int b);
 	int LCM(int a, int b);
 public:
-	//init and cancel value in class
 	FRACTION();
+	FRACTION(int, int);
 	~FRACTION();
 
-	//Support function group
+	//Supportive function group
 	void format();
 	FRACTION reduction();
 	FRACTION inversion();
@@ -30,6 +30,11 @@ public:
 	//input and output data in class
 	friend istream& operator>>(istream&, FRACTION&);
 	friend ostream& operator<<(ostream&, FRACTION);	
+
+	int getNumerator();
+	int getDenominator();
+	void setNumerator(int);
+	void setDenominator(int);
 
 	//Calculation function group
 	FRACTION operator +(const FRACTION&);

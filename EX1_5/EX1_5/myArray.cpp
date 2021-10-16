@@ -68,53 +68,42 @@ void MY_ARRAY::Sort(int arr[], int l, int r, bool (MY_ARRAY::* s)(int, int)) {
 
 //PUBLIC PART
 
-// Function create of class
 MY_ARRAY::MY_ARRAY() {
     size = 0;
+    pArr = nullptr;
 }
 
-// Function cancel of class
-MY_ARRAY::~MY_ARRAY() {
-    delete[]element;
-    size = 0;
-}
-
-// Function input array
-istream& operator>>(istream& is, MY_ARRAY& array) {
-    array.~MY_ARRAY();
-    do {
-    cout << "Enter the number of element: ";
-    is >> array.size;
-    if (array.size < 0)
-        cout << "number of element must bigger or equal 0, please re_enter\n\n";
-    } while (array.size < 0);
-    array.element = new int[array.size];
-
-    for (int i = 0; i < array.size; i++) {
-        cout << "a[" << i << "] = ";
-        is >> array.element[i];
+MY_ARRAY::MY_ARRAY(int sz) {
+    if (sz <= 0) {
+        this->size = 0;
+        pArr = nullptr;
+        return;
     }
-    return is;
+    this->size = sz;
+    pArr = new int[size];
+    for (int i = 0; i < size; i++)
+        *(pArr + i) = 0;
 }
 
-// Function output array
-ostream& operator<<(ostream& os, MY_ARRAY& array) {
-    for (int i = 0; i < array.size; i++)
-        cout << array.element[i] << " ";
-    return os;
+MY_ARRAY::~MY_ARRAY() {
+    if (size > 0) {
+        size = 0;
+        delete pArr;
+        pArr = nullptr;
+    }
 }
 
 //  Function takes the position of the element
-int MY_ARRAY::operator[](int n) {
-    return element[n];
+int MY_ARRAY::operator[](int idx) {
+    return pArr[idx];
 }
 
 // Function copy the size and element of the array
 void MY_ARRAY::copyArray(MY_ARRAY& arrayNew) {
     arrayNew.size = this->size;
-    arrayNew.element = new int[arrayNew.size];
+    arrayNew.pArr = new int[arrayNew.size];
     for (int i = 0; i < this->size; i++)
-        arrayNew.element[i] = this->element[i];
+        arrayNew.pArr[i] = this->pArr[i];
 }
 
 // Function takes the size of array
@@ -125,17 +114,43 @@ int MY_ARRAY::getSize() {
 // Function find a value in array
 int MY_ARRAY::find(int value) {
     for (int i = 0; i < size; i++)
-        if (element[i] == value) return i;
+        if (pArr[i] == value) return i;
 
     return -1;
 }
 
 // Function array increases gradually
 void MY_ARRAY::sortIncrease() {
-    Sort(this->element, 0, this->size - 1, &MY_ARRAY::increase);
+    Sort(this->pArr, 0, this->size - 1, &MY_ARRAY::increase);
 }
 
 // Function array decrease gradually
 void MY_ARRAY::sortDecrease() {
-    Sort(this->element, 0, this->size - 1, &MY_ARRAY::decrease);
+    Sort(this->pArr, 0, this->size - 1, &MY_ARRAY::decrease);
+}
+
+//-------Friend--------
+// Function input array
+istream& operator>>(istream& is, MY_ARRAY& array) {
+    array.~MY_ARRAY();
+    do {
+        cout << "Enter the number of pArr: ";
+        is >> array.size;
+        if (array.size < 0)
+            cout << "number of pArr must bigger or equal 0, please re_enter\n\n";
+    } while (array.size < 0);
+    array.pArr = new int[array.size];
+
+    for (int i = 0; i < array.size; i++) {
+        cout << "a[" << i << "] = ";
+        is >> array.pArr[i];
+    }
+    return is;
+}
+
+// Function output array
+ostream& operator<<(ostream& os, MY_ARRAY& array) {
+    for (int i = 0; i < array.size; i++)
+        cout << array.pArr[i] << " ";
+    return os;
 }
