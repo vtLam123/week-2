@@ -3,8 +3,8 @@ using namespace std;
 
 // Function to find greatest common divisor
 int FRACTION::GCD(int a, int b) {
-		if (b == 0) return a;
-		return GCD(b, a % b);
+	if (b == 0) return a;
+	return GCD(b, a % b);
 }
 
 // Function to find least common multiple
@@ -14,7 +14,16 @@ int FRACTION::LCM(int a, int b) {
 
 // Function create of class
 FRACTION::FRACTION() {
-	this->nume = this->deno = 0;
+	this->nume = 0;
+	this->deno = 1;
+}
+
+FRACTION::FRACTION(int a, int b) {
+	this->nume = a;
+	if (b != 0)
+		this->deno = b;
+	else
+		this->deno = 1;
 }
 
 // Function cancel of class 
@@ -46,40 +55,28 @@ FRACTION FRACTION::inversion() {
 	return *this;
 }
 
-// Function input fraction
-istream& operator>>(istream& is, FRACTION& ft) {
-	cout << "- Enter the numerator: ";
-	is >> ft.nume;
-
-	while (1) {
-		cout << "- Enter the denominator: ";
-		is >> ft.deno;
-		if (ft.deno != 0)
-			break;
-		cout << "Unknown fraction!\n";
-	}
-	ft.format();
-	return is;
+// Function to get Numerator
+int FRACTION::getNumerator() {
+	return nume;
 }
 
-// Function output fraction
-ostream& operator<<(ostream& os, FRACTION ft) {
-	ft.format();
-	os << "(";
-	if (ft.deno == 0)
-		os << "inf";
-	else
-		if (ft.nume == ft.deno)
-			os << 1;
-		else
-			if (!ft.nume || ft.deno == 1)
-				os << ft.nume;
-			else 
-				os << ft.nume << "/" << ft.deno;
-	os << ")";
-	return os;
+// Function to get Denominator
+int FRACTION::getDenominator() {
+	return deno;
 }
 
+// Function to set Numerator
+void FRACTION::setNumerator(int newNume) {
+	nume = newNume;
+}
+
+// Function to set Denominator
+void FRACTION::setDenominator(int newDeno) {
+	if (newDeno != 0)
+		deno = newDeno;
+}
+
+// Operators:
 FRACTION FRACTION::operator +(const FRACTION& ft2) {
 	FRACTION addFt;
 	int lcm = LCM(abs(this->deno), abs(ft2.deno));
@@ -109,4 +106,39 @@ FRACTION FRACTION::operator /(const FRACTION& ft2) {
 	FRACTION inverFt2 = ft2;
 	inverFt2.inversion();
 	return *this * inverFt2;
+}
+
+//-------Friend--------
+// Function to input fraction
+istream& operator>>(istream& is, FRACTION& ft) {
+	cout << "- Enter the numerator: ";
+	is >> ft.nume;
+
+	while (1) {
+		cout << "- Enter the denominator: ";
+		is >> ft.deno;
+		if (ft.deno != 0)
+			break;
+		cout << "Unknown fraction!\n";
+	}
+	ft.format();
+	return is;
+}
+
+// Function to output fraction
+ostream& operator<<(ostream& os, FRACTION ft) {
+	ft.format();
+	os << "(";
+	if (ft.deno == 0)
+		os << "inf";
+	else
+		if (ft.nume == ft.deno)
+			os << 1;
+		else
+			if (!ft.nume || ft.deno == 1)
+				os << ft.nume;
+			else
+				os << ft.nume << "/" << ft.deno;
+	os << ")";
+	return os;
 }

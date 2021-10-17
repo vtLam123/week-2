@@ -1,2 +1,6 @@
-﻿  fraction.cpp
-  EX1_5.vcxproj -> C:\Users\Admin\Desktop\week\week 2\EX1_5\Debug\EX1_5.exe
+﻿  Main.cpp
+C:\Users\trand\OneDrive - VNU-HCMUS\Desktop\week-2\EX1_5\EX1_5\Main.cpp(250,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\trand\OneDrive - VNU-HCMUS\Desktop\week-2\EX1_5\EX1_5\Main.cpp(253,20): warning C4018: '<': signed/unsigned mismatch
+  fraction.cpp
+  Generating Code...
+  EX1_5.vcxproj -> C:\Users\trand\OneDrive - VNU-HCMUS\Desktop\week-2\EX1_5\Debug\EX1_5.exe
